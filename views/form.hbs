@@ -17,15 +17,27 @@
   <p>For searching for places of Interest</p>
 </div>
 
-<div class="container text-center">
-    <div class="col-sm-12">
-    <form if="form" action="/" method="post">
+<div class="row container text-center">
+  <div class="col-sm-12">
+    <form id="form" action="/" method="post">
       <div class="form-group">
-        <label for="addr">Enter Address: </label>
+        <label for="addr">Enter address:</label>
         <input id="addr" name="address" class="form-control" type="text" placeholder="Enter address..."/>
-        <p> </p>
-        <input type="submit" value="Send" formaction="/getplaces" />
+        <p></p>
+        <label for="name">Enter name:</label>
+        <input id="name" name="name" class="form-control" type="text" placeholder="Enter name..."/>
+        <p></p>
+        <label for="places-type">Select type of place:</label>
+        <p></p>
+          <select id="places-type" name="placetype" class="form-control">
+            {{> scrollablelist}}
+          </select>
+        <p></p>
+        <input type="submit" value="Send" formaction="/getplaces"/>
+      </div>
+    </form>
   </div>
+</div>
 </form>
 </div>
 </div>
