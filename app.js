@@ -77,7 +77,7 @@ const extractData = (originalResults) => {
     tempObj = {
       name: originalResults[i].name,
       address: originalResults[i].vicinity,
-      photo_reference: "N/A",
+      photo_reference: `https://www.mybus-asia.com/images/no_image_thumb.gif`,
     }
   }
     placesObj.table.push(tempObj);
