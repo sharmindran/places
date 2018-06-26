@@ -3,6 +3,8 @@ const express = require('express');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const server = express();
+const path = require('path');
+const filemgr = require('./filemgr');
 
 const port = process.env.PORT || 3000;
 
@@ -22,7 +24,9 @@ hbs.registerHelper('list', (items, options) => {
     out = out + options.fn(items[i]);
   }
   return out;
-})
+});
+
+server.use(express.static(path.join(__dirname, 'public')));
 
 server.get('/', (req, res) => {
   res.render('home.hbs');
@@ -49,12 +53,28 @@ const placesReq = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?
 
   return axios.get(placesReq);
 }).then((response) => {
+
   filteredResults = extractData(response.data.results);
+
+  filemgr.saveData(filteredResults).then((result) => {
+    res.render('result.hbs');
+  }).catch((errorMessage) => {
+    console.log(errorMessage);
+  });
+
   //res.status(200).send(filteredResults);
-  res.render('result.hbs');
 }).catch((error) => {
   console.log(error);
 });
+});
+
+server.get('/historical', (req,res) => {
+  filemgr.getAllData().then((result) => {
+    filteredResults = result; //to save/inject the result to webpage in registerHelper function above
+    res.render('historical.hbs');
+  }).catch((errorMessage) => {
+    console.log(errorMessage);
+  });
 });
 
 const extractData = (originalResults) => {
@@ -77,7 +97,7 @@ const extractData = (originalResults) => {
     tempObj = {
       name: originalResults[i].name,
       address: originalResults[i].vicinity,
-      photo_reference: `https://www.mybus-asia.com/images/no_image_thumb.gif`,
+      photo_reference: `/noimagefound.png`,
     }
   }
     placesObj.table.push(tempObj);
