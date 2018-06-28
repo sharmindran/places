@@ -105,6 +105,15 @@ const extractData = (originalResults) => {
   return placesObj.table;
 };
 
+server.post('/delete',(req, res) => {
+  filemgr.deleteAll().then((result) => {
+    filteredResults = result;
+    res.render('historical.hbs');
+  }).catch((errorMessage) => {
+    console.log(errorMessage);
+  });
+});
+
 
 
 server.listen(port, () => {
