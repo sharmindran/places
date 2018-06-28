@@ -2,7 +2,7 @@ const {MongoClient} = require('mongodb');
 const fs = MongoClient;
 
 //const database = 'mongodb://localhost:27017';
-const database = 'mongodb:sharmin:sam081141@@ds221271.mlab.com:21271/places-app';
+const database = 'mongodb://sharmin:sam081141@@ds221271.mlab.com:21271/places-app';
 
 const appname = 'places-app';
 const collectionname = 'placesappcollection';
