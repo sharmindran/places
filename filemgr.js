@@ -5,6 +5,7 @@ const fs = MongoClient;
 const database = 'mongodb://places-app:places123@ds221271.mlab.com:21271/places-app';
 
 const appname = 'places-app';
+const a='a';
 const collectionname = 'placesappcollection';
 
 const saveData = (newdata) => {
