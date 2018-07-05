@@ -10,8 +10,6 @@ const database = 'mongodb://placesapp2018:placesapp2018@ds121311.mlab.com:21311/
 const appname = 'placesapp2018';
 
 const collectionname = 'placesappcollection';
-const appname = 'placesapp';
-const collectionname = 'placesappcollection';
 
 const saveData = (newdata) => {
   return new Promise((resolve, reject) => {
