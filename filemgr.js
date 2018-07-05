@@ -3,11 +3,12 @@ const fs = MongoClient;
 
 //
 
-//const database = 'mongodb://localhost:27017';
-const database = 'mongodb://placesapp2018:placesapp2018@ds121311.mlab.com:21311/placesapp2018';
+const database = 'mongodb://localhost:27017';
+//const database = 'mongodb://placesapp2018:placesapp2018@ds121311.mlab.com:21311/placesapp2018';
                         //mongodb://<dbuser>:<dbpassword>@ds121311.mlab.com:21311/placesapp2018
 
-const appname = 'placesapp2018';
+//const appname = 'placesapp2018';
+const appname = 'placesapp2018'
 
 const collectionname = 'placesappcollection';
 

@@ -6,7 +6,7 @@ const server = express();
 const path = require('path');
 const filemgr = require('./filemgr');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 server.use(bodyParser.urlencoded({extended: true}));
 server.set('view engine', 'hbs');
