@@ -4,7 +4,8 @@ const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const server = express();
 const path = require('path');
-const filemgr = require('./filemgr');
+//const filemgr = require('./filemgr');
+const Place = require('./Place');
 
 const port = process.env.PORT || 5000;
 
@@ -56,26 +57,37 @@ const placesReq = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?
 
   filteredResults = extractData(response.data.results);
 
-  filemgr.saveData(filteredResults).then((result) => {
-    res.render('result.hbs');
-  }).catch((errorMessage) => {
-    console.log(errorMessage);
-  });
+  // filemgr.saveData(filteredResults).then((result) => {
+  //   res.render('result.hbs');
+  // }).catch((errorMessage) => {
+  //   console.log(errorMessage);
+  // });
 
   //res.status(200).send(filteredResults);
+
+  Place.insertMany(filteredResults)
+  .then((result) => {
+    res.status(200).send(result);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+
 }).catch((error) => {
   console.log(error);
 });
 });
 
-server.get('/historical', (req,res) => {
-  filemgr.getAllData().then((result) => {
-    filteredResults = result; //to save/inject the result to webpage in registerHelper function above
-    res.render('historical.hbs');
-  }).catch((errorMessage) => {
-    console.log(errorMessage);
+server.post('/historical', (req,res) => {
+  Place.find({})
+  .then((result) => {
+    res.status(200).send(result);
+  })
+  .catch((error) => {
+    res.status(400).send(error);
   });
 });
+
+
 
 const extractData = (originalResults) => {
   var placesObj = {
@@ -106,12 +118,13 @@ const extractData = (originalResults) => {
 };
 
 server.post('/delete',(req, res) => {
-  filemgr.deleteAll().then((result) => {
-    filteredResults = result;
-    res.render('historical.hbs');
-  }).catch((errorMessage) => {
-    console.log(errorMessage);
-  });
+  Place.remove({})
+.then((result) => {
+  res.status(200).send(result);
+})
+.catch((error) => {
+  res.status(400).send(error);
+});
 });
 
 
